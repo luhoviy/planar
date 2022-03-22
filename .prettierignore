@@ -1,0 +1,5 @@
+package.json
+package-lock.json
+angular.json
+dist/
+.eslintrc.json

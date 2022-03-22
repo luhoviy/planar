@@ -1,0 +1,16 @@
+{
+  "printWidth": 110,
+  "endOfLine": "auto",
+  "singleQuote": false,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "trailingComma": "none",
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 90
+      }
+    }
+  ]
+}
