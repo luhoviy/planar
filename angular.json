@@ -85,9 +85,21 @@
           "options": {
             "browserTarget": "planar:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "planar"
+  "defaultProject": "planar",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
