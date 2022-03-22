@@ -1,26 +1,24 @@
-// This file is required by karma.conf.js and loads recursively all the .spec and framework files
+import "jest-preset-angular/setup-jest";
+import { DebugElement } from "@angular/core";
+import { By } from "@angular/platform-browser";
 
-import 'zone.js/testing';
-import { getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
-} from '@angular/platform-browser-dynamic/testing';
+declare module "@angular/core" {
+  interface DebugElement {
+    _getText(): string;
 
-declare const require: {
-  context(path: string, deep?: boolean, filter?: RegExp): {
-    <T>(id: string): T;
-    keys(): string[];
-  };
+    _getDebugEl(dataTestAttribute: string): DebugElement;
+
+    _getDebugElArray(dataTestAttribute: string): DebugElement[];
+  }
+}
+DebugElement.prototype._getText = function () {
+  return this.nativeElement.textContent.trim();
 };
 
-// First, initialize the Angular testing environment.
-getTestBed().initTestEnvironment(
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(),
-);
+DebugElement.prototype._getDebugEl = function (dataTestAttribute: string) {
+  return this.query(By.css(`[data-test="${dataTestAttribute}"]`));
+};
 
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);
+DebugElement.prototype._getDebugElArray = function (dataTestAttribute: string) {
+  return this.queryAll(By.css(`[data-test="${dataTestAttribute}"]`));
+};
