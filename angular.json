@@ -93,6 +93,6 @@
   },
   "defaultProject": "planar",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@ngrx/schematics"
   }
 }
