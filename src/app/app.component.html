@@ -1,1 +1,9 @@
-<h1>Test</h1>
+<div style="margin: 1rem">
+  <button (click)="login(ProviderTypeEnum.METAMASK)" mat-raised-button>Login</button>
+  <button (click)="logout()" style="margin-left: 1rem" mat-raised-button color="accent">
+    Logout
+  </button>
+</div>
+
+<h4>{{ user | async | json }}</h4>
+<h2>{{ token | async | json }}</h2>

@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { appReducers, AppState, metaReducers } from './app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthStoreModule } from '../core/authentication/store/auth-store.module';
 
 const NgrxConfig: RootStoreConfig<AppState> = {
   runtimeChecks: {
@@ -22,7 +23,8 @@ const NgrxConfig: RootStoreConfig<AppState> = {
       ...NgrxConfig
     }),
     EffectsModule.forRoot(),
-    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : []
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 25 }) : [],
+    AuthStoreModule
   ]
 })
 export class AppStoreModule {}
