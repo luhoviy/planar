@@ -19,7 +19,6 @@
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:@angular-eslint/recommended--extra",
-        "plugin:ngrx/recommended",
         "prettier"
       ],
       "rules": {
@@ -39,7 +38,7 @@
             "style": "kebab-case"
           }
         ],
-        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/no-unused-vars": "warn",
         "@angular-eslint/use-lifecycle-interface": "error",
         "@angular-eslint/no-empty-lifecycle-method": "warn",
         "@angular-eslint/no-output-on-prefix": "off",
@@ -86,7 +85,9 @@
       },
       "rules": {
         "@typescript-eslint/no-unused-vars": "off",
-        "jest/prefer-to-be": "off"
+        "jest/prefer-to-be": "off",
+        "jest/no-test-prefixes": "off",
+        "jest/no-disabled-tests": "off"
       }
     }
   ]
