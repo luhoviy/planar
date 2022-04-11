@@ -28,7 +28,10 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/styles/_theme.scss"],
+            "styles": ["src/styles/index.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles/shared/"]
+            },
             "scripts": [],
             "allowedCommonJsDependencies": ["web3", "hash.js"]
           },

@@ -1,0 +1,47 @@
+.h-100 {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute-mid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.overflow-y {
+  overflow-y: scroll;
+}
+
+.pointer {
+  cursor: pointer;
+  user-select: none;
+}
+
+.no-pointer {
+  pointer-events: none;
+  user-select: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.no-break {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
