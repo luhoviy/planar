@@ -15,7 +15,7 @@ import { APP_CONFIG, AppConfigFactory } from './shared/injectors/app-config';
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     AppStoreModule,
