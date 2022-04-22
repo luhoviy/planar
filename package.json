@@ -11,7 +11,11 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "husky:install": "husky install",
-    "format:fix": "pretty-quick --staged"
+    "format:fix": "pretty-quick --staged",
+    "dev:ssr": "ng run planar:serve-ssr",
+    "serve:ssr": "node dist/server/main.js",
+    "build:ssr": "ng build && ng run planar:server",
+    "prerender": "ng run planar:prerender"
   },
   "private": true,
   "dependencies": {
@@ -24,13 +28,17 @@
     "@angular/material": "^13.3.4",
     "@angular/platform-browser": "^13.3.4",
     "@angular/platform-browser-dynamic": "^13.3.4",
+    "@angular/platform-server": "^13.3.4",
     "@angular/router": "^13.3.4",
     "@ngrx/effects": "^13.1.0",
     "@ngrx/store": "^13.1.0",
+    "@nguniversal/express-engine": "^13.1.0",
+    "express": "^4.15.2",
     "lodash": "^4.17.21",
     "rxjs": "^7.5.5",
+    "swarm-js": "^0.1.40",
     "tslib": "^2.4.0",
-    "web3": "~1.7.1",
+    "web3": "^1.5.3",
     "zone.js": "^0.11.5"
   },
   "devDependencies": {
@@ -45,6 +53,8 @@
     "@angular/language-service": "^13.3.4",
     "@ngrx/schematics": "^13.1.0",
     "@ngrx/store-devtools": "^13.1.0",
+    "@nguniversal/builders": "^13.1.0",
+    "@types/express": "^4.17.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.25",

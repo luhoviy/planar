@@ -8,7 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AppStoreModule, HttpClientModule, MatButtonModule],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    AppRoutingModule,
+    AppStoreModule,
+    HttpClientModule,
+    MatButtonModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
