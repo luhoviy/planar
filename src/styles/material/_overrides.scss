@@ -1,0 +1,11 @@
+@import 'variables';
+
+//mat-menu
+
+.mat-menu-panel {
+  background-color: $dark-grey;
+
+  .mat-menu-content:not(:empty) {
+    padding: 0;
+  }
+}

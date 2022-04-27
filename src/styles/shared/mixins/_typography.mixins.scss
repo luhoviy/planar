@@ -50,3 +50,10 @@
   font-weight: $font-weight-regular;
   color: $light-grey;
 }
+
+@mixin icon-size($fontSize: $font-size-label-small) {
+  font-size: $fontSize;
+  width: $fontSize;
+  height: $fontSize;
+  line-height: $fontSize;
+}

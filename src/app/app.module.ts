@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppStoreModule } from './store/app-store.module';
@@ -11,11 +11,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_CONFIG, AppConfigFactory } from './shared/injectors/app-config';
+import { METAMASK, MetamaskFactory } from './shared/injectors/metamask';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserTransferStateModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AppStoreModule,
@@ -29,6 +31,10 @@ import { APP_CONFIG, AppConfigFactory } from './shared/injectors/app-config';
     {
       provide: APP_CONFIG,
       useFactory: AppConfigFactory
+    },
+    {
+      provide: METAMASK,
+      useFactory: MetamaskFactory(true)
     }
   ],
   bootstrap: [AppComponent]

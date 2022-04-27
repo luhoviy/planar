@@ -4,8 +4,12 @@
   "compilerOptions": {
     "outDir": "./out-tsc/server",
     "target": "es2019",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "web3": ["./mock/lib.mock.ts"]
+    }
   },
+  "exclude": ["src/app/core/wallet-providers/metamask/services/metamask-auth.service.ts"],
   "files": ["src/main.server.ts", "server.ts"],
   "angularCompilerOptions": {
     "entryModule": "./src/app/app.server.module#AppServerModule"

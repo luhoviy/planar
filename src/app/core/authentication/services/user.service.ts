@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Authority } from '../models/enums';
+import { TransferStateService } from '../../../shared/services/transfer-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Authority } from '../models/enums';
 export class UserService {
   private readonly _apiBaseUrl = environment.API_BASE_URL;
 
-  constructor(private readonly _http: HttpClient) {}
+  constructor(private readonly _http: HttpClient, private transfer: TransferStateService) {}
 
   public registerAccount(publicAddress: string): Observable<User> {
     const user: BaseUser = {
@@ -25,7 +26,13 @@ export class UserService {
   }
 
   public getUser(publicAddress: string): Observable<User> {
-    return this._http.get<User>(`${this._apiBaseUrl}/user/${publicAddress}`);
+    const request = this._http.get<User>(`${this._apiBaseUrl}/user/${publicAddress}`);
+
+    return this.transfer.transferableHttpRequest({
+      request,
+      stateKey: `user_${publicAddress}`,
+      removeFromStateOnClientSide: true
+    });
   }
 
   public findOrCreateUser(publicAddress: string): Observable<User> {

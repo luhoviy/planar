@@ -1,0 +1,11 @@
+<app-profile-background></app-profile-background>
+
+<div class="timeline-container">
+  <div class="timeline-container__inner m-auto">
+    <app-profile-details></app-profile-details>
+
+    <h1>{{ isEditable ? 'Editable' : 'Non Editable' }}</h1>
+
+    <h2>{{ user | json }}</h2>
+  </div>
+</div>

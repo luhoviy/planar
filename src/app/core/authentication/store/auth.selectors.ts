@@ -10,3 +10,8 @@ export const getAccessToken = createSelector(getAuthenticationState, (state) =>
 );
 
 export const isLoggedIn = createSelector(getAccessToken, (accessToken) => !!accessToken);
+
+export const isInitialLoginChecked = createSelector(
+  getAuthenticationState,
+  (state) => state.initialLoginChecked
+);

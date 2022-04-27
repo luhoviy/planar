@@ -39,3 +39,13 @@ h2 {
 h3 {
   @include h3();
 }
+
+a {
+  text-decoration: none;
+  color: $white;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
