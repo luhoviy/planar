@@ -1,0 +1,25 @@
+.loading-bg {
+  background: linear-gradient(to right, #383838 0%, #74747481 30%, #a09d9d85 60%, #383838 100%);
+  background-size: 400%;
+  background-position: left;
+  animation: load 1s ease-in-out 0s infinite alternate;
+
+  @keyframes load {
+    0% {
+      background-position: right;
+    }
+
+    100% {
+      background-position: left;
+    }
+  }
+}
+
+.loading-img {
+  opacity: 0;
+
+  &--loaded {
+    transition: opacity 0.5s ease-out;
+    opacity: 1;
+  }
+}

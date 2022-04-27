@@ -7,14 +7,16 @@ const reducer = createReducer(
   on(AuthActions.saveAccountData, (state, { authData }) => {
     return {
       ...state,
-      ...authData
+      ...authData,
+      initialLoginChecked: true
     };
   }),
   on(AuthActions.clearAccountData, (state) => {
     return {
       ...state,
       user: null,
-      accessToken: null
+      accessToken: null,
+      initialLoginChecked: true
     };
   })
 );

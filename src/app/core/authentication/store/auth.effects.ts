@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 import { clearAccountData, saveAccountData } from './auth.actions';
-import { catchError, of, switchMap, take, tap, finalize, filter, map, withLatestFrom } from 'rxjs';
+import { switchMap, take, tap, finalize, filter, map, withLatestFrom, of, catchError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { MetamaskAuthService } from '../../wallet-providers/metamask/services/metamask-auth.service';
-import { IS_METAMASK_AVAILABLE } from '../../wallet-providers/metamask/metamask.instance';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { getCurrentUser } from './auth.selectors';
-import { isNil, isEqual } from 'lodash';
 import { UserService } from '../services/user.service';
+import { METAMASK } from '../../../shared/injectors/metamask';
+import { Metamask } from '../../../shared/models/metamask.model';
+import { isNil, isEqual } from 'lodash';
 import { AccountAuthData } from '../models/auth.model';
 
 @Injectable()
@@ -24,7 +25,8 @@ export class AuthEffects {
     private _authService: AuthService,
     private _metamask: MetamaskAuthService,
     private _localStorageService: LocalStorageService,
-    private _userService: UserService
+    private _userService: UserService,
+    @Inject(METAMASK) metamask: Metamask
   ) {
     this._manuallySignedOut = !!_localStorageService.getItem('manuallySignedOut');
   }
@@ -65,46 +67,47 @@ export class AuthEffects {
     )
   );
 
-  MetaMaskAccountChanged$ = IS_METAMASK_AVAILABLE
-    ? createEffect(() =>
-        this._metamask.metamaskAccountChanged$.pipe(
-          filter(() => !this._isProcessingLogin && !this._manuallySignedOut),
-          switchMap((publicAddress) => {
-            if (isNil(publicAddress)) {
-              return of(clearAccountData());
-            }
+  MetaMaskAccountChanged$ = createEffect(() =>
+    this._metamask.metamaskAccountChanged$.pipe(
+      filter(() => !this._isProcessingLogin && !this._manuallySignedOut),
+      switchMap((publicAddress) => {
+        if (isNil(publicAddress)) {
+          return of(clearAccountData());
+        }
 
-            const localUserData = this._localStorageService.getItem<AccountAuthData>(publicAddress);
-            if (!isNil(localUserData)) {
-              return of(saveAccountData({ authData: localUserData })).pipe(
-                tap(() => {
-                  this._userService.getUser(publicAddress).subscribe((user) => {
-                    if (!isEqual(user, localUserData.user)) {
-                      const authData: AccountAuthData = {
-                        ...localUserData,
-                        user
-                      };
-                      this._store.dispatch(saveAccountData({ authData }));
-                      this._localStorageService.setItem(user.publicAddress, authData);
-                    }
-                  });
-                })
-              );
-            }
+        const localUserData = this._localStorageService.getItem<AccountAuthData>(publicAddress);
+        if (!isNil(localUserData)) {
+          return of(saveAccountData({ authData: localUserData })).pipe(
+            tap(() => {
+              this._userService
+                .getUser(publicAddress)
+                .pipe(take(1))
+                .subscribe((user) => {
+                  if (!isEqual(user, localUserData.user)) {
+                    const authData: AccountAuthData = {
+                      ...localUserData,
+                      user
+                    };
+                    this._store.dispatch(saveAccountData({ authData }));
+                    this._localStorageService.setItem(user.publicAddress, authData);
+                  }
+                });
+            })
+          );
+        }
 
-            return this._userService.findOrCreateUser(publicAddress).pipe(
-              map((user) => {
-                const authData: AccountAuthData = {
-                  user,
-                  accessToken: null
-                };
-                this._localStorageService.setItem(user.publicAddress, authData);
-                return saveAccountData({ authData });
-              })
-            );
-          }),
-          catchError(() => of(clearAccountData()))
-        )
-      )
-    : null;
+        return this._userService.findOrCreateUser(publicAddress).pipe(
+          map((user) => {
+            const authData: AccountAuthData = {
+              user,
+              accessToken: null
+            };
+            this._localStorageService.setItem(user.publicAddress, authData);
+            return saveAccountData({ authData });
+          })
+        );
+      }),
+      catchError(() => of(clearAccountData()))
+    )
+  );
 }

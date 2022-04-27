@@ -1,0 +1,19 @@
+@import 'variables';
+
+@mixin border-radius($size: $card-border-radius) {
+  border-radius: $size;
+}
+
+@mixin border-radius-top($size: $card-border-radius) {
+  border-top-left-radius: $size;
+  border-top-right-radius: $size;
+}
+
+@mixin border-radius-bottom($size: $card-border-radius) {
+  border-bottom-left-radius: $size;
+  border-bottom-right-radius: $size;
+}
+
+@mixin box-shadow($shadowColor: $shadow-color) {
+  box-shadow: 0px 10px 27px -4px $shadowColor;
+}

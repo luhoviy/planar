@@ -1,0 +1,16 @@
+:host {
+  height: 250px;
+  display: block;
+  overflow: visible;
+
+  .profile-image {
+    z-index: -1;
+    position: fixed;
+    top: 70px;
+    height: 350px;
+
+    img {
+      object-fit: cover;
+    }
+  }
+}

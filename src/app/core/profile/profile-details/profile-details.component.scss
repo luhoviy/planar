@@ -1,0 +1,32 @@
+@import 'variables';
+@import 'mixins';
+
+//:host {
+//  display: block;
+//  position: relative;
+//}
+
+.avatar-wrapper {
+  height: 200px;
+  width: 200px;
+  background-color: $white;
+  @include border-radius(30px);
+  @include box-shadow();
+  top: -70px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .mat-icon {
+    color: $light-grey;
+    @include icon-size(6rem);
+  }
+}
